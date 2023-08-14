@@ -4,8 +4,6 @@ body{
 }
 
 #robotcam{
-transform:translate(-1%,-1%);
-margin:1.5vh;
 width:100vw;
 height:100vh;
 position:fixed;
