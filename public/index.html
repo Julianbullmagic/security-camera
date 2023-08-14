@@ -1,0 +1,47 @@
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <title>Video Chat Application</title>
+  <link rel="stylesheet" href="css/styles.css" />
+  <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs"> </script>
+<script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/coco-ssd"> </script>
+</head>
+<body>
+
+  <img id="robotcam"></img>
+  <canvas id="robotcanvas"></canvas>
+  <img id="tv" src="tvscreen.png"></img>
+
+  <div id="controldiv">
+  <div id="left"><img src="arrowup.png"></div>
+  <div id="right"><img src="arrowup.png"></div>
+  <div id="centrecircle">
+    <div id="centrecircletop">
+      <div id="topleft"><img src="arrowup.png"></img></div>
+      <div id="topmiddle"><img src="arrowup.png"></img></div>
+      <div id="topright"><img src="arrowup.png"></img></div>
+    </div>
+    <div id="centrecirclemiddle">
+      <div id="middleleft"><img src="arrowleft.png"></img></div>
+      <div id="middlemiddle"></div>
+      <div id="middleright"><img src="arrowright.png"></img></div>
+    </div>
+    <div id="centrecirclebottom">
+      <div id="bottomleft"><img src="arrowleft.png"></img></div>
+      <div id="bottommiddle"><img src="arrowdown.png"></img></div>
+      <div id="bottomright"><img src="arrowright.png"></img></div>
+    </div>
+  </div>
+</div>
+<button id="detectObjects">Detect Objects</button>
+<div class="slidecontainer">
+  <p>Speed: <span id="demo"></span></p>
+  <input type="range" min="1" max="100" value="50" class="slider" id="myRange">
+</div>
+
+  <script src="/socket.io/socket.io.min.js"></script>
+  <script src="js/index.js"></script>
+</body>
+</html>
