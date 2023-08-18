@@ -12,7 +12,6 @@ let robot=""
 io.on("connection", (socket) => {
   console.log(socket.id,"connection")
     socket.on("frame", (data) => {
-       console.log(data)
         io.emit("frame",Buffer.from(data, 'base64').toString());
     });
     socket.on("disconnect", () => {
