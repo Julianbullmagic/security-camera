@@ -11,7 +11,10 @@
     "author": "",
     "license": "ISC",
     "dependencies": {
+        "@xenova/transformers": "^2.5.2",
         "express": "^4.17.1",
-        "socket.io": "^4.2.0"
+        "socket.io": "^4.2.0",
+        "text-from-image": "^1.1.1",
+        "transformers": "^3.1.0"
     }
 }

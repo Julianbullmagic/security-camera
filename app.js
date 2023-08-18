@@ -20,3 +20,18 @@ io.on("connection", (socket) => {
 });
 
 server.listen(port, () => console.log(`Server is running on port ${port}`));
+
+
+module.exports = {
+  image_to_text: function(imagePath, model) {
+    return require("@xenova/transformers").image_to_text(imagePath, model);
+  }
+};
+
+// Import the module
+const imageToText = require("./image-to-text");
+const imagePath = "parkingranger.jpg";
+
+const caption = image_to_text(imagePath, model="Salesforce/blip-image-captioning-base");
+
+console.log(caption);
