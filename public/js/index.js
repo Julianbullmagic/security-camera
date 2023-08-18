@@ -4,5 +4,5 @@ let detectingObjects=false
 
 socket.on("frame", (data) => {
 let img=document.getElementById('robotcam')
-img.src = `${data}`
+img.src = `data:image/jpeg;base64,${data}`
 });
