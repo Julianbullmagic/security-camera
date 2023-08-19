@@ -3,10 +3,10 @@ let HF_ACCESS_TOKEN = "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";
 const inference = new HfInference(HF_ACCESS_TOKEN);
 let cocoSsdModel;
 
-async function loadModel() {
-  cocoSsdModel = await cocoSsd.load();
-  console.log("COCO-SSD model loaded");
-}
+// async function loadModel() {
+//   cocoSsdModel = await cocoSsd.load();
+//   console.log("COCO-SSD model loaded");
+// }
 
 async function performObjectDetection(model, imageElement) {
   // Perform object detection on the image using the provided model
