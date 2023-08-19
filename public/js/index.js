@@ -51,6 +51,5 @@ img.onload = async () => {
   const predictions = await performObjectDetection(img);
   console.log("Object detection predictions:", predictions);
   // Handle the object detection predictions here
-};
-  })();
+})();
 });
