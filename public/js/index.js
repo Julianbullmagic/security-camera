@@ -1,6 +1,6 @@
 import { HfInference } from 'https://cdn.jsdelivr.net/npm/@huggingface/inference@2.6.1/+esm';
 import * as cocoSsd from 'https://cdn.jsdelivr.net/npm/@tensorflow-models/coco-ssd@3.0.0/dist/coco-ssd.esm.js';
-import * as yolo from 'https://cdn.jsdelivr.net/npm/yolov5-tfjs@1.2.0/dist/esm/index.js';
+// import * as yolo from 'https://cdn.jsdelivr.net/npm/yolov5-tfjs@1.2.0/dist/esm/index.js';
 let HF_ACCESS_TOKEN = "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";
 const inference = new HfInference(HF_ACCESS_TOKEN);
 
@@ -14,10 +14,10 @@ cocoSsd.load().then((model) => {
 });
 
 // Load the YOLOv5 model
-yolo.load().then((model) => {
-  yoloModel = model;
-  console.log("YOLOv5 model loaded");
-});
+// yolo.load().then((model) => {
+//   yoloModel = model;
+//   console.log("YOLOv5 model loaded");
+// });
 
 async function performObjectDetection(model, imageElement) {
   // Perform object detection on the image using the provided model
@@ -64,10 +64,10 @@ console.log("COCO-SSD predictions:", cocoSsdPredictions);
 // Handle COCO-SSD predictions, e.g., draw bounding boxes on the image
 }
 
-if (yoloModel) {
-const yoloPredictions = await performObjectDetection(yoloModel, img);
-console.log("YOLOv5 predictions:", yoloPredictions);
-// Handle YOLOv5 predictions, e.g., draw bounding boxes on the image
+// if (yoloModel) {
+// const yoloPredictions = await performObjectDetection(yoloModel, img);
+// console.log("YOLOv5 predictions:", yoloPredictions);
+// // Handle YOLOv5 predictions, e.g., draw bounding boxes on the image
 }
   })();
 });
