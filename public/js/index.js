@@ -1,7 +1,30 @@
 import { HfInference } from 'https://cdn.jsdelivr.net/npm/@huggingface/inference@2.6.1/+esm';
-
+import * as cocoSsd from 'https://cdn.jsdelivr.net/npm/@tensorflow-models/coco-ssd@3.0.0/dist/coco-ssd.esm.js';
+import * as yolo from 'https://cdn.jsdelivr.net/npm/yolov5-tfjs@1.2.0/dist/esm/index.js';
 let HF_ACCESS_TOKEN = "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";
 const inference = new HfInference(HF_ACCESS_TOKEN);
+
+let cocoSsdModel;
+let yoloModel;
+
+// Load the COCO-SSD model
+cocoSsd.load().then((model) => {
+  cocoSsdModel = model;
+  console.log("COCO-SSD model loaded");
+});
+
+// Load the YOLOv5 model
+yolo.load().then((model) => {
+  yoloModel = model;
+  console.log("YOLOv5 model loaded");
+});
+
+async function performObjectDetection(model, imageElement) {
+  // Perform object detection on the image using the provided model
+  const predictions = await model.detect(imageElement);
+
+  return predictions;
+}
 
 // Convert base64 image string to caption
 async function getCaption(base64Image) {
@@ -34,5 +57,18 @@ socket.on("frame", async (data) => {
 
     let img = document.getElementById('robotcam');
     img.src = `data:image/jpeg;base64,${data}`;
+    img.onload = async () => {
+  if (cocoSsdModel) {
+    const cocoSsdPredictions = await performObjectDetection(cocoSsdModel, img);
+    console.log("COCO-SSD predictions:", cocoSsdPredictions);
+    // Handle COCO-SSD predictions, e.g., draw bounding boxes on the image
+  }
+
+  if (yoloModel) {
+    const yoloPredictions = await performObjectDetection(yoloModel, img);
+    console.log("YOLOv5 predictions:", yoloPredictions);
+    // Handle YOLOv5 predictions, e.g., draw bounding boxes on the image
+  }
+};
   })();
 });
