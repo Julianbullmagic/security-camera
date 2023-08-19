@@ -27,7 +27,6 @@ async function getCaption(base64Image) {
     data: imageBlob,
     model: 'Salesforce/blip-image-captioning-base',
   });
-
   return text;
 }
 
@@ -45,13 +44,13 @@ socket.on("frame", async (data) => {
 }
 let img = document.getElementById('robotcam');
 img.src = `data:image/jpeg;base64,${data}`;
-img.onload = async () => {
-  if (!cocoSsdModel) {
-    await loadModel();
-  }
-  const predictions = await performObjectDetection(img);
-  console.log("Object detection predictions:", predictions);
-  // Handle the object detection predictions here
-};
+// img.onload = async () => {
+//   if (!cocoSsdModel) {
+//     await loadModel();
+//   }
+//   const predictions = await performObjectDetection(img);
+//   console.log("Object detection predictions:", predictions);
+//   // Handle the object detection predictions here
+// };
   })();
 });
