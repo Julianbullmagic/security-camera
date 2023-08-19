@@ -30,7 +30,7 @@ async function getCaption(base64Image) {
   return text;
 }
 
-const socket = io("https://security-camera-ou3g.onrender.com/");
+const socket = io();
 // let captionPromise = Promise.resolve(); // Initialize with a resolved promise
 
 socket.on("frame", async (data) => {
