@@ -1,6 +1,6 @@
-import { HfInference } from 'https://cdn.jsdelivr.net/npm/@huggingface/inference@2.6.1/+esm';
-let HF_ACCESS_TOKEN = "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";
-const inference = new HfInference(HF_ACCESS_TOKEN);
+// import { HfInference } from 'https://cdn.jsdelivr.net/npm/@huggingface/inference@2.6.1/+esm';
+// let HF_ACCESS_TOKEN = "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";
+// const inference = new HfInference(HF_ACCESS_TOKEN);
 let cocoSsdModel;
 
 // async function loadModel() {
@@ -30,18 +30,18 @@ async function getCaption(base64Image) {
   return text;
 }
 
-const socket = io("/");
-let captionPromise = Promise.resolve(); // Initialize with a resolved promise
+const socket = io("https://security-camera-ou3g.onrender.com/");
+// let captionPromise = Promise.resolve(); // Initialize with a resolved promise
 
 socket.on("frame", async (data) => {
   // Wait for the previous caption processing to complete before starting the next one
-  await captionPromise;
+  // await captionPromise;
 
   // Process the caption
-  captionPromise = (async () => {
-    const caption = await getCaption(data);
-    console.log(caption);
-}
+//   captionPromise = (async () => {
+//     const caption = await getCaption(data);
+//     console.log(caption);
+// })()
 let img = document.getElementById('robotcam');
 img.src = `data:image/jpeg;base64,${data}`;
 // img.onload = async () => {
@@ -52,5 +52,5 @@ img.src = `data:image/jpeg;base64,${data}`;
 //   console.log("Object detection predictions:", predictions);
 //   // Handle the object detection predictions here
 // };
-  })();
+  // })();
 });
