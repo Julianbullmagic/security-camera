@@ -1,16 +1,20 @@
 import { HfInference } from 'https://cdn.jsdelivr.net/npm/@huggingface/inference@2.6.1/+esm';
-import * as cocoSsd from 'https://cdn.jsdelivr.net/npm/@tensorflow-models/coco-ssd@3.0.0/dist/coco-ssd.esm.js';
+// import * as cocoSsd from 'https://cdn.jsdelivr.net/npm/@tensorflow-models/coco-ssd@3.0.0/dist/coco-ssd.esm.js';
 // import * as yolo from 'https://cdn.jsdelivr.net/npm/yolov5-tfjs@1.2.0/dist/esm/index.js';
 let HF_ACCESS_TOKEN = "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";
 const inference = new HfInference(HF_ACCESS_TOKEN);
 
 let cocoSsdModel;
-let yoloModel;
 
-// Load the COCO-SSD model
-cocoSsd.load().then((model) => {
-  cocoSsdModel = model;
+async function loadModels() {
+  // Load the COCO-SSD model
+  cocoSsdModel = await cocoSsd.load();
   console.log("COCO-SSD model loaded");
+}
+
+// Load the models when the page is ready
+document.addEventListener("DOMContentLoaded", () => {
+  loadModels();
 });
 
 // Load the YOLOv5 model
@@ -22,7 +26,6 @@ cocoSsd.load().then((model) => {
 async function performObjectDetection(model, imageElement) {
   // Perform object detection on the image using the provided model
   const predictions = await model.detect(imageElement);
-
   return predictions;
 }
 
