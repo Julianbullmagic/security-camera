@@ -54,21 +54,20 @@ socket.on("frame", async (data) => {
   captionPromise = (async () => {
     const caption = await getCaption(data);
     console.log(caption);
+}
+let img = document.getElementById('robotcam');
+img.src = `data:image/jpeg;base64,${data}`;
+img.onload = async () => {
+if (cocoSsdModel) {
+const cocoSsdPredictions = await performObjectDetection(cocoSsdModel, img);
+console.log("COCO-SSD predictions:", cocoSsdPredictions);
+// Handle COCO-SSD predictions, e.g., draw bounding boxes on the image
+}
 
-    let img = document.getElementById('robotcam');
-    img.src = `data:image/jpeg;base64,${data}`;
-    img.onload = async () => {
-  if (cocoSsdModel) {
-    const cocoSsdPredictions = await performObjectDetection(cocoSsdModel, img);
-    console.log("COCO-SSD predictions:", cocoSsdPredictions);
-    // Handle COCO-SSD predictions, e.g., draw bounding boxes on the image
-  }
-
-  if (yoloModel) {
-    const yoloPredictions = await performObjectDetection(yoloModel, img);
-    console.log("YOLOv5 predictions:", yoloPredictions);
-    // Handle YOLOv5 predictions, e.g., draw bounding boxes on the image
-  }
-};
+if (yoloModel) {
+const yoloPredictions = await performObjectDetection(yoloModel, img);
+console.log("YOLOv5 predictions:", yoloPredictions);
+// Handle YOLOv5 predictions, e.g., draw bounding boxes on the image
+}
   })();
 });
