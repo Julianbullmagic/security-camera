@@ -48,7 +48,7 @@ img.onload = async () => {
   if (!cocoSsdModel) {
     await loadModel();
   }
-  const predictions = await performObjectDetection(img);
+  const predictions = await performObjectDetection(cocoSsdModel,img);
   console.log("Object detection predictions:", predictions);
   // Handle the object detection predictions here
 }
