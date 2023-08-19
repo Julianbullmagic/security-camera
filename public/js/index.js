@@ -6,7 +6,7 @@ const inference = new HfInference(HF_ACCESS_TOKEN);
 
 let cocoSsdModel;
 
-async function loadModels() {
+async function loadModel() {
   // Load the COCO-SSD model
   cocoSsdModel = await cocoSsd.load();
   console.log("COCO-SSD model loaded");
@@ -60,6 +60,14 @@ socket.on("frame", async (data) => {
 }
 let img = document.getElementById('robotcam');
 img.src = `data:image/jpeg;base64,${data}`;
+img.onload = async () => {
+  if (!cocoSsdModel) {
+    await loadModel();
+  }
+  const predictions = await performObjectDetection(img);
+  console.log("Object detection predictions:", predictions);
+  // Handle the object detection predictions here
+};
 // img.onload = async () => {
 // if (cocoSsdModel) {
 // const cocoSsdPredictions = await performObjectDetection(cocoSsdModel, img);
