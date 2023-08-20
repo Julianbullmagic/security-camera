@@ -3,41 +3,33 @@ const express = require("express");
 const { Server } = require("socket.io");
 const tf = require('@tensorflow/tfjs-node');
 const cocoSsd = require('@tensorflow-models/coco-ssd');
-
 const app = express();
 const server = createServer(app);
 const io = new Server(server);
 const port = process.env.PORT || 3000;
 app.use(express.static("public"));
 
-let model;
+let modelPromise = cocoSsd.load();
 
-async function loadModel() {
-  model = await cocoSsd.load();
-  console.log("COCO-SSD model loaded");
-}
-
-async function performObjectDetection(base64ImageData) {
-  const buffer = Buffer.from(base64ImageData, 'base64');
-  const image = await tf.node.decodeImage(buffer);
+async function performObjectDetection(imageBase64) {
+  const imageBuffer = Buffer.from(imageBase64, 'base64');
+  const model = await modelPromise;
+  const image = tf.node.decodeImage(imageBuffer);
   const predictions = await model.detect(image);
   image.dispose();
   return predictions;
 }
 
 io.on("connection", (socket) => {
-  loadModel().then(() => {
-    console.log(socket.id, "connection");
+  console.log(socket.id, "connection");
+  socket.on("frame", async (data) => {
+    const predictions = await performObjectDetection(data);
+    console.log("Object detection predictions:", predictions);
+    io.emit("frame", { base64ImageData: data, predictions });
+  });
 
-    socket.on("frame", async (data) => { // Added async here
-      const predictions = await performObjectDetection(data); // Use data instead of base64ImageData
-      console.log("Object detection predictions:", predictions);
-      io.emit("frame", data);
-    });
-
-    socket.on("disconnect", () => {
-      console.log("disconnect");
-    });
+  socket.on("disconnect", () => {
+    console.log("disconnect");
   });
 });
 

@@ -12,11 +12,11 @@
     "license": "ISC",
     "dependencies": {
         "@tensorflow-models/coco-ssd": "^2.2.2",
-        "@tensorflow/tfjs": "^4.10.0",
+        "@tensorflow/tfjs-node": "^4.10.0",
         "@xenova/transformers": "^2.5.2",
         "express": "^4.17.1",
-        "socket.io": "^4.2.0",
-        "text-from-image": "^1.1.1",
-        "transformers": "^3.1.0"
+        "node": "16.14.2",
+        "node-pre-gyp": "^0.17.0",
+        "socket.io": "^4.2.0"
     }
 }
