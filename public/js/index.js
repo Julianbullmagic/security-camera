@@ -53,5 +53,5 @@ img.src = `data:image/jpeg;base64,${data}`;
 //   const predictions = await performObjectDetection(cocoSsdModel,img);
   // console.log("Object detection predictions:", predictions);
   // Handle the object detection predictions here
-}
+// }
 });
