@@ -1,18 +1,6 @@
-// import { HfInference } from 'https://cdn.jsdelivr.net/npm/@huggingface/inference@2.6.1/+esm';
-// let HF_ACCESS_TOKEN = "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";
-// const inference = new HfInference(HF_ACCESS_TOKEN);
-let cocoSsdModel;
-
-async function loadModel() {
-  cocoSsdModel = await cocoSsd.load();
-  console.log("COCO-SSD model loaded");
-}
-
-async function performObjectDetection(model, imageElement) {
-  // Perform object detection on the image using the provided model
-  const predictions = await model.detect(imageElement);
-  return predictions;
-}
+import { HfInference } from 'https://cdn.jsdelivr.net/npm/@huggingface/inference@2.6.1/+esm';
+let HF_ACCESS_TOKEN = "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";
+const inference = new HfInference(HF_ACCESS_TOKEN);
 
 // Convert base64 image string to caption
 async function getCaption(base64Image) {
@@ -46,12 +34,5 @@ socket.on("frame", async (data) => {
 // })()
 let img = document.getElementById('robotcam');
 img.src = `data:image/jpeg;base64,${data}`;
-// img.onload = async () => {
-//   if (!cocoSsdModel) {
-//     await loadModel();
-//   }
-//   const predictions = await performObjectDetection(cocoSsdModel,img);
-  // console.log("Object detection predictions:", predictions);
-  // Handle the object detection predictions here
-// }
+
 });
