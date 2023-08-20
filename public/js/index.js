@@ -23,7 +23,7 @@ const socket = io();
 
 socket.on("frame", async (data) => {
   // { base64ImageData: data, predictions }
-  console.log(data)
+  console.log(data.predictions)
   // Wait for the previous caption processing to complete before starting the next one
   // await captionPromise;
 
@@ -33,6 +33,6 @@ socket.on("frame", async (data) => {
 //     console.log(caption);
 // })()
 let img = document.getElementById('robotcam');
-img.src = `data:image/jpeg;base64,${data}`;
+img.src = `data:image/jpeg;base64,${data.base64ImageData}`;
 
 });
