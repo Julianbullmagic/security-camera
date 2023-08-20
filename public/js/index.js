@@ -34,6 +34,8 @@ const socket = io();
 // let captionPromise = Promise.resolve(); // Initialize with a resolved promise
 
 socket.on("frame", async (data) => {
+  // { base64ImageData: data, predictions }
+  console.log(data)
   // Wait for the previous caption processing to complete before starting the next one
   // await captionPromise;
 
@@ -44,12 +46,12 @@ socket.on("frame", async (data) => {
 // })()
 let img = document.getElementById('robotcam');
 img.src = `data:image/jpeg;base64,${data}`;
-img.onload = async () => {
-  if (!cocoSsdModel) {
-    await loadModel();
-  }
-  const predictions = await performObjectDetection(cocoSsdModel,img);
-  console.log("Object detection predictions:", predictions);
+// img.onload = async () => {
+//   if (!cocoSsdModel) {
+//     await loadModel();
+//   }
+//   const predictions = await performObjectDetection(cocoSsdModel,img);
+  // console.log("Object detection predictions:", predictions);
   // Handle the object detection predictions here
 }
 });
